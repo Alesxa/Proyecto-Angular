@@ -1,0 +1,96 @@
+<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>FORMULARIO</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Nombre" formControlName="nombre">
+            <mat-error *ngIf="addressForm.controls['nombre'].hasError('required')">
+              El campo nombre es <strong>Obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Apellidos" formControlName="apellidos">
+            <mat-error *ngIf="addressForm.controls['apellidos'].hasError('required')">
+              El campo apellidos es <strong>Obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Edad" formControlName="edad">
+            <mat-error *ngIf="addressForm.controls['edad'].hasError('required')">
+              El campo edad es  <strong>obligatorio</strong>
+            </mat-error>
+            <mat-error *ngIf="addressForm.controls['edad'].hasError('max')">
+              El campo edad es  <strong>mayor de 125</strong>
+            </mat-error>
+            <mat-error *ngIf="addressForm.controls['edad'].hasError('min')">
+              El campo edad es  <strong>menor de 0. Si no has nacido no andes rellenando formularios</strong>
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Dni" formControlName="dni">
+            <mat-error *ngIf="addressForm.controls['dni'].hasError('required')">
+              El campo Dni es  <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="cumpleanos">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker >
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="fill">
+            <input matInput placeholder="Color Favorito" formControlName="colorFavorito">
+            <mat-error *ngIf="addressForm.controls['colorFavorito'].hasError('required')">
+              El campo color favorito es  <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-radio-group formControlName="sexo">
+            <mat-radio-button value="hombre">Hombre</mat-radio-button>
+            <mat-radio-button value="mujer">Mujer</mat-radio-button>
+            <mat-radio-button value="otro">Otro</mat-radio-button>
+            <mat-radio-button value="No Especificado">No especificado</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<ul>
+<li class="liPersona" *ngFor="let elemento of Personas; let i=index">
+<p class="size"> Los datos de  <b>{{elemento.Nombre}}</b> son {{elemento.Nombre}} {{elemento.Apellidos}}, {{elemento.Edad}} años, {{elemento.DNI}}, {{elemento.Cumpleanos |date:'d/M/y'}}, {{elemento.ColorFavorito}}, {{elemento.Sexo}}</p>
+<button mat-raised-button color="accent" (click)="modificarPersona(i)">Modificar</button>
+<button mat-raised-button color="warn" (click)="eliminarPersona(i)">Eliminar</button>
+
+</li>
+</ul>
